@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Travel on yuejn</title>
+    <link>https://yuejn.com/travel/</link>
+    <description>Recent content in Travel on yuejn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Tue, 20 Nov 2018 00:00:58 +0100</lastBuildDate>
+    
+	<atom:link href="https://yuejn.com/travel/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Visited</title>
+      <link>https://yuejn.com/travel/list/</link>
+      <pubDate>Thu, 13 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://yuejn.com/travel/list/</guid>
+      <description>Asia (4)  Hong Kong Indonesia Japan Macau  Europe (18)  Austria Belgium Czech Republic Finland France Germany Greece Hungary Italy (and Vatican City) Monaco Netherlands Norway Poland Portugal Republic of Ireland Spain Switzerland United Kingdom (England, Wales, Scotland)  To visit:
+ Albania Andorra Armenia Azerbaijan Belarus Bosnia and Herzegovina Bulgaria (€) Croatia (€) Cyprus (€) Denmark (€) Estonia (€) Georgia Hungary (€) Iceland Latvia (€) Liechtenstein Lithuania (€) Luxembourg (€) Malta (€) Moldova Montenegro North Macedonia Romania (€) San Marino Serbia Slovakia (€) Slovenia (€) Sweden (€) Ukraine Turkey  North America (2)  Canada United States  Oceania (1)  Australia  </description>
+    </item>
+    
+    <item>
+      <title>48 hours in Bordeaux, France</title>
+      <link>https://yuejn.com/travel/france/bordeaux/</link>
+      <pubDate>Mon, 20 Aug 2018 00:00:58 +0100</pubDate>
+      
+      <guid>https://yuejn.com/travel/france/bordeaux/</guid>
+      <description>It had been a few years since I went on a solo trip, and this year, I decided to go to Bordeaux, late August. I knew nobody and nothing in this city before I arrived. I departed leaving a little bit of myself behind.
+I arrived in the city on sunny Saturday morning. The first order of business was to check out the Marché des Capucins which was one of my main reasons for taking this trip.</description>
+    </item>
+    
+  </channel>
+</rss>
