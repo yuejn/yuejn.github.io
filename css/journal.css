@@ -274,6 +274,11 @@ code {
   margin-bottom: var(--standard-margin);
 }
 
+.post-title {
+  font-size: var(--big-text-size);
+  font-weight: 700;
+}
+
 .post-content {
   min-height: 40vh;
 }
@@ -287,6 +292,7 @@ code {
 }
 .post-content h1 {
   font-size: var(--big-text-size);
+  margin-bottom: 0.5em;
 }
 
 article,

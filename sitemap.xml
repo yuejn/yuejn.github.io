@@ -148,11 +148,6 @@
   </url>
   
   <url>
-    <loc>https://yuejn.com/travel/italy/</loc>
-    <lastmod>2018-11-20T00:00:58+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://yuejn.com/travel/</loc>
     <lastmod>2019-12-29T00:00:00+00:00</lastmod>
   </url>
@@ -185,6 +180,11 @@
   <url>
     <loc>https://yuejn.com/travel/list/</loc>
     <lastmod>2019-12-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://yuejn.com/travel/france/lyon/</loc>
+    <lastmod>2018-09-10T00:01:04+01:00</lastmod>
   </url>
   
   <url>
