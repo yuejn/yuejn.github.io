@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on yuejn</title>
+    <link>https://yuejn.com/tags/</link>
+    <description>Recent content in Tags on yuejn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Wed, 22 Jul 2020 17:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://yuejn.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>pasta</title>
+      <link>https://yuejn.com/tags/pasta/</link>
+      <pubDate>Wed, 22 Jul 2020 17:00:00 +0000</pubDate>
+      
+      <guid>https://yuejn.com/tags/pasta/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>recipe</title>
+      <link>https://yuejn.com/tags/recipe/</link>
+      <pubDate>Wed, 22 Jul 2020 17:00:00 +0000</pubDate>
+      
+      <guid>https://yuejn.com/tags/recipe/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>brief</title>
+      <link>https://yuejn.com/tags/brief/</link>
+      <pubDate>Wed, 24 Jun 2020 18:23:00 +0000</pubDate>
+      
+      <guid>https://yuejn.com/tags/brief/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tech</title>
+      <link>https://yuejn.com/tags/tech/</link>
+      <pubDate>Wed, 20 May 2020 18:12:28 +0100</pubDate>
+      
+      <guid>https://yuejn.com/tags/tech/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>baking</title>
+      <link>https://yuejn.com/tags/baking/</link>
+      <pubDate>Wed, 29 Apr 2020 19:23:22 +0200</pubDate>
+      
+      <guid>https://yuejn.com/tags/baking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title> asian</title>
+      <link>https://yuejn.com/tags/asian/</link>
+      <pubDate>Sun, 08 Apr 2018 16:15:27 +0100</pubDate>
+      
+      <guid>https://yuejn.com/tags/asian/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hotpot</title>
+      <link>https://yuejn.com/tags/hotpot/</link>
+      <pubDate>Sun, 08 Apr 2018 16:15:27 +0100</pubDate>
+      
+      <guid>https://yuejn.com/tags/hotpot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>workplace</title>
+      <link>https://yuejn.com/tags/workplace/</link>
+      <pubDate>Mon, 13 Nov 2017 11:02:19 +0100</pubDate>
+      
+      <guid>https://yuejn.com/tags/workplace/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

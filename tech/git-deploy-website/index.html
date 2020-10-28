@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.69.0" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+    <meta property="og:url" content="https://yuejn.com/tech/git-deploy-website/">
+
+    <title>Using Git to deploy to your website - yuejn</title>
+    <meta property="og:title" content="Using Git to deploy to your website - yuejn">
+    <meta property="og:type" content="article">
+    <meta name="description" content="Too many platforms and services? Go old-school with Git and SSH">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Cardo:ital,wght@0,400;0,700;1,400">
+    
+    
+    <link rel="stylesheet" href="https://yuejn.com/scss/main.min.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link href="/index.xml" rel="alternate" type="application/rss+xml" title="yuejn">
+
+    <script src="https://kit.fontawesome.com/9f60258c19.js" crossorigin="anonymous" samesite="none"></script>
+    
+  </head>
+
+  <body class="article">
+    <div class="container">
+
+      <header class="site-header">
+        <h1><a href="https://yuejn.com/" title="yuejn"><span>y</span></a></h1>
+      </header>
+
+      <nav class="site-nav">
+        <ul>
+          <li><a href="/about" title="About">About</a></li>
+          <li><a href="/now" title="Now">Now</a></li>
+          <li><a href="/micro" title="Micro">Micro</a></li>
+          
+        </ul>
+      </nav>
+
+
+  <article class="post">
+    <header class="post-header">
+      <h2 class="post-title">Using Git to deploy to your website</h2>
+          
+      <time class="post-date" datetime="2019-01-17 12:23:30 CET">Published:
+        Jan 2019</time>
+
+
+
+      
+
+      &diamond; <span>5 min read</span>
+
+      <br /><aside class="post-section"><a href="https://yuejn.com//tech">tech</a></aside>
+    </header>
+
+    
+
+    
+
+    <section class="post-content">
+      <p>This is a brief post on how I deploy my HTML source files from my local workspace to my website using Git. It describes how I&rsquo;ve set things up so I can push live changes easily. My website is powered by <a href="https://gohugo.io">Hugo</a>, a static site generator, but this guide is applicable to most cases.</p>
+<p>The quick summary: after compiling locally, I push my local repository to a managed repository (i.e. GitHub), and then I push it again to a remote repository (my website) and use a <em>post-receive</em> hook to update my website with the compiled HTML files.</p>
+<p>There are lots of other ways, more powerful, to manage and deploy your website using Git &ndash; there is a great guide on <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">hosting on GitHub pages</a>, for example &ndash; but this one works for me and might work for you too. :)</p>
+<hr>
+<h1 id="assumptions">Assumptions</h1>
+<ul>
+<li>You are familiar with Git</li>
+<li>A remote server is set up with passwordless SSH access</li>
+<li>If you are using Hugo, your site is ready-to-publish and already a Git repository</li>
+</ul>
+<h1 id="the-set-up">The set-up</h1>
+<p>Our local repository is a Git repository.</p>
+<p>On the remote server, there are three workspaces:</p>
+<ul>
+<li>The live public directory: <em>/home/www/domain.com</em></li>
+<li>The repository: <em>/home/repos/domain.git</em></li>
+<li>The temporary directory: <em>/home/temp/domain.com</em></li>
+</ul>
+<p>We&rsquo;re going to push into the remote repository, which will push the files to the temporary directory, and then we will push only the compiled HTML files (in Hugo, everything in <em>/public</em>) to the live public directory. Separately, we push everything from our local repository to the managed Git repository.</p>
+<h1 id="the-remote-repository">The remote repository</h1>
+<p>After SSHing in and moving into the <em>/home</em>, we&rsquo;ll create a new <em>/repos</em> directory and initialise a bare repository that will mirror the version control files of our local repository. While we&rsquo;re here, we&rsquo;ll also create a new <em>/temp</em> directory for our site &ndash; this is where we want the source files to get pushed into.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir temp <span style="color:#f92672">&amp;&amp;</span> cd temp
+mkdir domain.com
+
+cd ..
+
+mkdir repos <span style="color:#f92672">&amp;&amp;</span> cd repos
+mkdir domain.git <span style="color:#f92672">&amp;&amp;</span> cd domain.git
+git init --bare
+</code></pre></div><p>Now we&rsquo;re going to set up a <em>post-receive</em> hook. This is where the magic happens.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd hooks
+touch post-receive
+chmod +x post-receive
+</code></pre></div><p>Open up <em>post-receive</em> in whichever text editor you like. This file will be executed every time the remote repository receives a push.</p>
+<p>These are the instructions we&rsquo;re going to push to this hook:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Set bindings for clarity</span>
+export WORK_DIR<span style="color:#f92672">=</span>/home/temp/domain.com
+export GIT_DIR<span style="color:#f92672">=</span>/home/repos/domain.git
+export LIVE_DIR<span style="color:#f92672">=</span>/home/www/domain.com
+
+echo -e <span style="color:#e6db74">&#34;\033[0;33mDeleting the current temp/public directory...\033[0m&#34;</span>
+
+<span style="color:#75715e"># If temp/public exists, then let&#39;s remove it</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -d <span style="color:#e6db74">&#34;</span>$WORK_DIR<span style="color:#e6db74">/public&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span> rm -rf $WORK_DIR/public; <span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># Now we push the files into the temp directory</span>
+git --work-tree<span style="color:#f92672">=</span>$WORK_DIR --git-dir<span style="color:#f92672">=</span>$GIT_DIR checkout -f
+
+echo -e <span style="color:#e6db74">&#34;\033[0;33mChecked out to /temp! Now deleting the contents of the live directory...\033[0m&#34;</span>
+
+<span style="color:#75715e"># And then we send only the contents of temp/public to the live directory</span>
+rsync -avht $WORK_DIR/public/ $LIVE_DIR --delete
+
+echo -e <span style="color:#e6db74">&#34;\033[0;33mSynced to live directory.\033[0m&#34;</span>
+</code></pre></div><h1 id="the-local-repository">The local repository</h1>
+<p>There is only one necessary thing to do here and that is to tell Git to add a remote for the live repository:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git remote add live ssh://user@domain.com/home/repos/domain.git
+</code></pre></div><p>Now, let&rsquo;s assume that we&rsquo;re happy with what our website looks like and we&rsquo;ve committed all our changes (after running <code>hugo</code>) &ndash; let&rsquo;s put it online! When we use <code>git push live master</code>, the whole project will be pushed to the remote repository, and the <em>post-receive</em> hook starts up.</p>
+<p>Try pushing it now.</p>
+<h1 id="the-process">The process</h1>
+<p>Note: This borrows heavily from the <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">Hugo documentation</a>.</p>
+<p>Besides compiling my site and pushing my changes to the live repository, I also want to push my changes to my managed Git repository (with remote name <em>origin</em>). I also have some Sass compiling to do for my theme, so I automate all of these things in a script called <em>deploy.sh</em>.</p>
+<p>It looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo -e <span style="color:#e6db74">&#34;\033[0;32mDeploying updates...\033[0m&#34;</span>
+
+<span style="color:#75715e">## compile things here</span>
+
+<span style="color:#75715e"># Remove the public directory</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -d public <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span> rm -rf public; <span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># Build the project</span>
+hugo
+
+<span style="color:#75715e"># Add the new public directory</span>
+git add public
+
+<span style="color:#75715e"># Commit the changes</span>
+msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rebuilding site `date`&#34;</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $# -eq <span style="color:#ae81ff">1</span> <span style="color:#f92672">]</span> <span style="color:#66d9ef">then</span> msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">fi</span>
+git commit -m <span style="color:#e6db74">&#34;</span>$msg<span style="color:#e6db74">&#34;</span>
+
+echo -e <span style="color:#e6db74">&#34;\033[0;32mDeploying updates to production...\033[0m&#34;</span>
+git push live master
+
+echo -e <span style="color:#e6db74">&#34;\033[0;32mDeploying updates to private repo...\033[0m&#34;</span>
+git push origin master
+</code></pre></div><p>Make sure the file is executable (<code>chmod +x deploy.sh</code>) and then whenever you want to push changes to your live site and the private repository, simply:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./deploy.sh <span style="color:#e6db74">&#34;optional commit message&#34;</span>
+</code></pre></div><hr>
+<h1 id="notes">Notes</h1>
+<p>There are a few things worth mentioning:</p>
+<p>There are lots of <a href="https://githooks.com/">other Git hooks</a> to play around with. For example, if you want to reject pushes if your code fails a test or linter, you can adjust the <em>pre-receive</em> hook.</p>
+<p>The work tree directory has to be writable by the user who is running the hook (<code>git checkout -f</code>) so double-check permissions if you run into any issues.</p>
+<p>If your local files are straight up what you want to push &ndash; i.e. there is no compilation and resulting <em>/public</em> directory &ndash; then you can skip the <em>/temp</em> and <em>/public</em> parts and push directly into the live directory.</p>
+<p>My previous attempts used symbolic links (<code>ln -s</code>) and some other reading offered <code>cp</code> as an option to move files too. Both these solutions ignored deleted files, so I had to delete entire folders and remake them. This is an OK solution, to be fair, but I found <code>rsync</code> and liked it a lot better. Depending on how big your site is, you might prefer differently.</p>
+<p>That being said, an earlier version of this pipeline used temporary directories to hold dated versions of the project (i.e. backups), and then symlinked the newest directory to the live directory. This is a nice way to do backups, or even beta releases; just remember to purge so it doesn&rsquo;t get too crowded after every push.</p>
+
+    </section>
+
+  </article>
+
+
+      <footer class="site-footer">
+
+        
+
+
+        <a itemprop="sameAs" href="https://www.buymeacoffee.com/yuejn" title="Buy Me a Coffee">buy me a coffee</a> &middot;
+
+        <a itemprop="sameAs" href="https://twitter.com/yuejn" title="Twitter">@yuejn</a>
+
+        
+
+        <p class="center">&copy; 2012-2020</p>
+      </footer>
+    </div>
+
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  </body>
+</html>
+

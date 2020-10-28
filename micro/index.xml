@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Micro on yuejn</title>
+    <link>https://yuejn.com/micro/</link>
+    <description>Recent content in Micro on yuejn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Wed, 20 May 2020 18:12:28 +0100</lastBuildDate>
+    
+	<atom:link href="https://yuejn.com/micro/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>One Second a Day video compilations and smart albums</title>
+      <link>https://yuejn.com/micro/401/</link>
+      <pubDate>Wed, 20 May 2020 18:12:28 +0100</pubDate>
+      
+      <guid>https://yuejn.com/micro/401/</guid>
+      <description>If you&amp;rsquo;re in the Apple ecosystem, it is easy to put together your own &amp;lsquo;one second a day&amp;rsquo; video for the end of the year (or whichever timeframe you like). In the Photos app (iOS), I create a Smart Album with the conditions that Photo is actually a video and the Date capture is in the range of between the first and last day of the year. After, in iMovies, I select aforementioned album to use as the project&amp;rsquo;s media.</description>
+    </item>
+    
+    <item>
+      <title>Helplessness</title>
+      <link>https://yuejn.com/micro/100/</link>
+      <pubDate>Sun, 05 Jan 2020 11:45:41 +0100</pubDate>
+      
+      <guid>https://yuejn.com/micro/100/</guid>
+      <description>I think one of this age&amp;rsquo;s strangest things is witnessing the world around us implode &amp;ndash; in real-time, on fire, with ego. And then we wake up in the morning, eat breakfast, and go to work. It is surreal.
+What do we do? What can we do? How do we do it? How can we better help the most vulnerable, the most marginalised? History has told us they will suffer first and the most.</description>
+    </item>
+    
+    <item>
+      <title>DIY Lip Scrub</title>
+      <link>https://yuejn.com/micro/200/</link>
+      <pubDate>Sun, 24 Nov 2019 16:52:36 +0100</pubDate>
+      
+      <guid>https://yuejn.com/micro/200/</guid>
+      <description>In a small jar, crush and mix together 4 tbsp of raw sugar with 1 tbsp argan oil, 1 tbsp coconut oil, and a a few drops (less is more) of vanilla extract.</description>
+    </item>
+    
+    <item>
+      <title>Send yourself messages in WhatsApp</title>
+      <link>https://yuejn.com/micro/400/</link>
+      <pubDate>Wed, 14 Nov 2018 18:12:28 +0100</pubDate>
+      
+      <guid>https://yuejn.com/micro/400/</guid>
+      <description>Create a group with someone, kick them out (sorry), pin the group, and now send yourself links, messages, and other media to yourself that you can access on your phone, the web, and on your desktop. This has been a nice addition to my usual now-laborious Notes app route.</description>
+    </item>
+    
+    <item>
+      <title>Permission denied (publickey)</title>
+      <link>https://yuejn.com/micro/302/</link>
+      <pubDate>Wed, 19 Sep 2018 17:08:13 +0100</pubDate>
+      
+      <guid>https://yuejn.com/micro/302/</guid>
+      <description>I wrapped up Baptiste Augrain&amp;rsquo;s solution to the Permission denied (publickey) problem in a bash file called ssh_git.sh, made it executable (chmod +x ssh_git.sh), and run it whenever I run into the error message when pushing to a Bitbucket repository.
+ssh-add ~/.ssh/bitbucket-key # replace this with your key path ssh-add -l ssh -Tv git@bitbucket.org </description>
+    </item>
+    
+    <item>
+      <title>Clean up disks from Virtual Box</title>
+      <link>https://yuejn.com/micro/304/</link>
+      <pubDate>Tue, 10 Apr 2018 09:13:43 +0100</pubDate>
+      
+      <guid>https://yuejn.com/micro/304/</guid>
+      <description>Unfortunately, to clean up space, you can&amp;rsquo;t just delete *.vmdk.
+vboxmanage list hdds ... vboxmanage closemedium disk &amp;lt;uuid&amp;gt; --delete </description>
+    </item>
+    
+    <item>
+      <title>Figuring out (painful) lessons</title>
+      <link>https://yuejn.com/micro/2/</link>
+      <pubDate>Sun, 18 Feb 2018 11:51:59 +0100</pubDate>
+      
+      <guid>https://yuejn.com/micro/2/</guid>
+      <description>“I began to experience painful moments in a radically different way. Instead of feeling frustrated or overwhelmed, I saw pain as nature’s reminder that there is something important for me to learn. Encountering pains and figuring out the lessons they were trying to give me became sort of a game to me. The more I played it, the better I got at it, the less painful those situations became, and the more rewarding the process of reflecting, developing principles, and then getting rewards for using those principles became.</description>
+    </item>
+    
+    <item>
+      <title>Quiet voices</title>
+      <link>https://yuejn.com/micro/101/</link>
+      <pubDate>Mon, 13 Nov 2017 11:02:19 +0100</pubDate>
+      
+      <guid>https://yuejn.com/micro/101/</guid>
+      <description>The loudest voice in the room culture actively discourages those more inclined to a more introverted and non-confrontational nature. When in workplace meetings, watch how often and easy it is for interruptions to occur. If you are in a position to do so, ask the quietest person what they&amp;rsquo;re thinking. Inspired by &amp;ldquo;What questions do you have?&amp;rdquo; instead of &amp;ldquo;Do you have any questions?&amp;quot;.</description>
+    </item>
+    
+    <item>
+      <title>Git alias for one-line graph log</title>
+      <link>https://yuejn.com/micro/300/</link>
+      <pubDate>Wed, 03 May 2017 13:35:39 +0100</pubDate>
+      
+      <guid>https://yuejn.com/micro/300/</guid>
+      <description>h/t: stackoverflow.com
+git config --global alias.adog &amp;#34;log --all --decorate --oneline --graph&amp;#34; </description>
+    </item>
+    
+    <item>
+      <title>The life plan</title>
+      <link>https://yuejn.com/micro/1/</link>
+      <pubDate>Mon, 03 Aug 2015 08:58:57 +0100</pubDate>
+      
+      <guid>https://yuejn.com/micro/1/</guid>
+      <description>Alice asked the Cheshire Cat, who was sitting in a tree, “What road do I take?”
+The cat asked, “Where do you want to go?”
+“I don’t know,” Alice answered.
+“Then,” said the cat, “it really doesn’t matter, does it?”
+ Lewis Carroll, Alice’s Adventures in Wonderland (1865)</description>
+    </item>
+    
+    <item>
+      <title>Underscore</title>
+      <link>https://yuejn.com/micro/303/</link>
+      <pubDate>Sat, 18 Jul 2015 15:17:49 +0100</pubDate>
+      
+      <guid>https://yuejn.com/micro/303/</guid>
+      <description>Get the last value in the console with an underscore _.
+irb&amp;gt; Event.within_bounding_box([40.71, 100.23], [36.12, 88.65]) irb&amp;gt; event = _ </description>
+    </item>
+    
+    <item>
+      <title>Mute Chrome tabs</title>
+      <link>https://yuejn.com/micro/301/</link>
+      <pubDate>Thu, 09 Apr 2015 11:02:19 +0100</pubDate>
+      
+      <guid>https://yuejn.com/micro/301/</guid>
+      <description>Selectively mute tabs in Chrome by going to chrome://flags/#enable-tab-audio-muting and enable the feature. Browser restart required.</description>
+    </item>
+    
+  </channel>
+</rss>

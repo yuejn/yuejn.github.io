@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tech on yuejn</title>
+    <link>https://yuejn.com/tags/tech/</link>
+    <description>Recent content in tech on yuejn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Wed, 20 May 2020 18:12:28 +0100</lastBuildDate>
+    
+	<atom:link href="https://yuejn.com/tags/tech/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>One Second a Day video compilations and smart albums</title>
+      <link>https://yuejn.com/micro/401/</link>
+      <pubDate>Wed, 20 May 2020 18:12:28 +0100</pubDate>
+      
+      <guid>https://yuejn.com/micro/401/</guid>
+      <description>If you&amp;rsquo;re in the Apple ecosystem, it is easy to put together your own &amp;lsquo;one second a day&amp;rsquo; video for the end of the year (or whichever timeframe you like). In the Photos app (iOS), I create a Smart Album with the conditions that Photo is actually a video and the Date capture is in the range of between the first and last day of the year. After, in iMovies, I select aforementioned album to use as the project&amp;rsquo;s media.</description>
+    </item>
+    
+    <item>
+      <title>Send yourself messages in WhatsApp</title>
+      <link>https://yuejn.com/micro/400/</link>
+      <pubDate>Wed, 14 Nov 2018 18:12:28 +0100</pubDate>
+      
+      <guid>https://yuejn.com/micro/400/</guid>
+      <description>Create a group with someone, kick them out (sorry), pin the group, and now send yourself links, messages, and other media to yourself that you can access on your phone, the web, and on your desktop. This has been a nice addition to my usual now-laborious Notes app route.</description>
+    </item>
+    
+    <item>
+      <title>Permission denied (publickey)</title>
+      <link>https://yuejn.com/micro/302/</link>
+      <pubDate>Wed, 19 Sep 2018 17:08:13 +0100</pubDate>
+      
+      <guid>https://yuejn.com/micro/302/</guid>
+      <description>I wrapped up Baptiste Augrain&amp;rsquo;s solution to the Permission denied (publickey) problem in a bash file called ssh_git.sh, made it executable (chmod +x ssh_git.sh), and run it whenever I run into the error message when pushing to a Bitbucket repository.
+ssh-add ~/.ssh/bitbucket-key # replace this with your key path ssh-add -l ssh -Tv git@bitbucket.org </description>
+    </item>
+    
+    <item>
+      <title>Mute Chrome tabs</title>
+      <link>https://yuejn.com/micro/301/</link>
+      <pubDate>Thu, 09 Apr 2015 11:02:19 +0100</pubDate>
+      
+      <guid>https://yuejn.com/micro/301/</guid>
+      <description>Selectively mute tabs in Chrome by going to chrome://flags/#enable-tab-audio-muting and enable the feature. Browser restart required.</description>
+    </item>
+    
+  </channel>
+</rss>

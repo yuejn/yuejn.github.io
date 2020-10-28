@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.69.0" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+    <meta property="og:url" content="https://yuejn.com/tech/hugo-github-pages/">
+
+    <title>How I&#39;m hosting Hugo on GitHub Pages - yuejn</title>
+    <meta property="og:title" content="How I&#39;m hosting Hugo on GitHub Pages - yuejn">
+    <meta property="og:type" content="article">
+    <meta name="description" content="Hosting a free static-site generator on a free server">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Cardo:ital,wght@0,400;0,700;1,400">
+    
+    
+    <link rel="stylesheet" href="https://yuejn.com/scss/main.min.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link href="/index.xml" rel="alternate" type="application/rss+xml" title="yuejn">
+
+    <script src="https://kit.fontawesome.com/9f60258c19.js" crossorigin="anonymous" samesite="none"></script>
+    
+  </head>
+
+  <body class="article">
+    <div class="container">
+
+      <header class="site-header">
+        <h1><a href="https://yuejn.com/" title="yuejn"><span>y</span></a></h1>
+      </header>
+
+      <nav class="site-nav">
+        <ul>
+          <li><a href="/about" title="About">About</a></li>
+          <li><a href="/now" title="Now">Now</a></li>
+          <li><a href="/micro" title="Micro">Micro</a></li>
+          
+        </ul>
+      </nav>
+
+
+  <article class="post">
+    <header class="post-header">
+      <h2 class="post-title">How I&#39;m hosting Hugo on GitHub Pages</h2>
+          
+      <time class="post-date" datetime="2020-04-26 22:16:19 CEST">Published:
+        Apr 2020</time>
+
+
+
+      
+
+      &diamond; <span>3 min read</span>
+
+      <br /><aside class="post-section"><a href="https://yuejn.com//tech">tech</a></aside>
+    </header>
+
+    
+
+    
+
+    <section class="post-content">
+      <p>The last time I dabbled in the background for this Hugo-powered site, I was <a href="/tech/git-deploy-website/">deploying it to a webserver</a> I pay for. Since then, I&rsquo;ve been looking at how to deploy it to <a href="https://pages.github.com/">GitHub Pages</a> for free, and to simplify a multiple-workstation-life.</p>
+<p>The caveat to GitHub Pages is that, on a free GitHub account, you can only use the feature on public repositories. What I wanted to do was keep my source files and drafts in a private repository, and have the generated static site pushed to the public repository which GitHub Pages would pull from.</p>
+<p>This is how I managed it using <code>git submodule</code>. A word of warning: submodules are complicated. This setup works well for me, a singular person, who updates on one machine. Nonetheless, I hope this post helps someone as a starting point.</p>
+<p>Note: If you really do not want it to be a public repository, <a href="https://netlify.com" title="Netlify">Netlify</a> allows deploys in private repositories!</p>
+<h2 id="setting-up-submodules">Setting up submodules</h2>
+<p>I have two GitHub repositories:</p>
+<ul>
+<li><code>&lt;username&gt;.github.io</code> is the public, GitHub pages-enabled repository</li>
+<li><code>blog</code> is the private repository holding source files and all drafts</li>
+</ul>
+<p>In Hugo, the <code>hugo</code> command generates the static site in a <em>/public</em> directory by default. So <em>/public</em> has to be move from being a directory in the <code>blog</code> private repository to its own public repository pointing to <code>&lt;username&gt;.github.io</code>.</p>
+<p>I used <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">Git submodules</a> for this. It&rsquo;s confusing. So here is what worked for me.</p>
+<p>First, I deleted the public folder (<code>rm -rf public</code>). This is okay because we can generate those files again. Then:</p>
+<pre><code>git submodule add git@github.com:&lt;username&gt;/&lt;username&gt;.github.io.git public
+git submodule init
+</code></pre>
+<p>The first line checks out the GitHub Page repository and adds it to the <em>blog</em> repository under the directory <em>public</em>.</p>
+<p>The second line pulls the code from the repository.</p>
+<p>For sanity check, I <code>hugo</code> to generate files to the <code>public</code> directory. I <code>cd public</code> and check <code>git remote -v</code> and then <code>cd ..</code> and check <code>git remote -v</code> to make sure they&rsquo;re pointing to different repositories.</p>
+<p>If, like me, you managed to mess up your submodules, checking what was up in the <em>/.git/modules</em> directory helped me to clean up.</p>
+<h2 id="a-new-deploy-script">A new deploy script</h2>
+<p>All right, so now the commands to deploy are a little finicky. I have to generate the site, push the changes to the public repository, then push the source files to the private repository. Not only that, Hugo changes and adds files, it doesn&rsquo;t delete. So I have to wipe the contents of public without removing its references to Git. Whew.</p>
+<p>So I ended up with an executable (<code>chmod +x deploy.sh</code>) <em>deploy.sh</em> script like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
+rm -rf public/* <span style="color:#75715e"># Remove all files except dot files</span>
+<span style="color:#75715e"># echo &#34;&lt;domain.tld&gt;&#34; &gt;&gt; public/CNAME # If you use a custom domain</span>
+
+hugo <span style="color:#75715e"># Generate the static files into /public</span>
+
+cd public 
+git add .
+git commit -m <span style="color:#e6db74">&#34;Rebuilding site&#34;</span>
+git push origin master
+
+cd ..
+git add .
+git commit -m <span style="color:#e6db74">&#34;Updating source and draft content&#34;</span>
+git push origin master
+</code></pre></div><p>Now, once you create your content, you can use <code>./deploy.sh</code> and it will generate the new files, and add it to each respective Git repository. It is not quite clean — if you are using multiple machines, you will need to <code>git submodule init</code> and then <code>git submodule update</code> to set the remotes correctly.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://help.github.com/en/github/working-with-github-pages/getting-started-with-github-pages">Getting started with GitHub pages</a></li>
+<li><a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">Host on GitHub</a></li>
+<li><a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">7.11 Git Tools - Submodules</a></li>
+<li><a href="https://stackoverflow.com/questions/22339837/linux-command-to-delete-all-files-except-git-folder">Linux command to delete all files except .git folder?</a></li>
+</ul>
+
+    </section>
+
+  </article>
+
+
+      <footer class="site-footer">
+
+        
+
+
+        <a itemprop="sameAs" href="https://www.buymeacoffee.com/yuejn" title="Buy Me a Coffee">buy me a coffee</a> &middot;
+
+        <a itemprop="sameAs" href="https://twitter.com/yuejn" title="Twitter">@yuejn</a>
+
+        
+
+        <p class="center">&copy; 2012-2020</p>
+      </footer>
+    </div>
+
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  </body>
+</html>
+
