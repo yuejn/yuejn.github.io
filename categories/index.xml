@@ -5,6 +5,10 @@
     <link>https://yuejn.com/categories/</link>
     <description>Recent content in Categories on yuejn</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-gb</language><atom:link href="https://yuejn.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-gb</language>
+    
+	<atom:link href="https://yuejn.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
   </channel>
 </rss>

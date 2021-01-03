@@ -6,7 +6,11 @@
     <description>Recent content in baking on yuejn</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Wed, 29 Apr 2020 19:23:22 +0200</lastBuildDate><atom:link href="https://yuejn.com/tags/baking/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 29 Apr 2020 19:23:22 +0200</lastBuildDate>
+    
+	<atom:link href="https://yuejn.com/tags/baking/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>A tray of meringue puffs</title>
       <link>https://yuejn.com/food/meringue-puffs/</link>
