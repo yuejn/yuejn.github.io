@@ -518,6 +518,11 @@ a:hover {
   margin-bottom: 1rem;
 }
 
+.post-title-date {
+  margin: 0;
+  font-size: 100%;
+}
+
 .post-content {
   min-height: 40vh;
 }
@@ -553,6 +558,14 @@ a:hover {
 
 /* Post-specific */
 #method {
+  margin-bottom: 1rem;
+}
+
+.food-brief header a {
+  border: none;
+}
+.food-brief:not(:last-child) {
+  border-bottom: 1px solid var(--color-shadow-background);
   margin-bottom: 1rem;
 }
 
